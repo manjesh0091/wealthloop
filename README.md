@@ -1,101 +1,283 @@
-# WealthLoop
+<div align="center">
 
-A multi-agent personal finance orchestrator that turns a user's raw transactions into a compliance-checked, human-approved investment plan — built with Python, LangGraph, LangChain, ChromaDB, and Groq (`openai/gpt-oss-120b`).
+# 🔁 WealthLoop
 
-## Problem statement
+### An autonomous multi-agent personal finance orchestrator for Indian users
 
-Most "robo-advisor" demos either hardcode a recommendation or let an LLM freewheel straight to output with no guardrails. WealthLoop instead runs the recommendation through a deterministic suitability check before a human ever sees it, and puts a real human-in-the-loop approval gate between the AI's proposal and any "execution" — with a genuine retry loop when either the compliance rules or the human reject the plan.
+[![Python](https://img.shields.io/badge/Python-3.13-blue?logo=python&logoColor=white)](https://www.python.org/)
+[![LangGraph](https://img.shields.io/badge/LangGraph-Orchestration-1BA97E)](https://www.langchain.com/langgraph)
+[![LangChain](https://img.shields.io/badge/LangChain-LLM_Layer-C9A227)](https://www.langchain.com/)
+[![ChromaDB](https://img.shields.io/badge/ChromaDB-Vector_Store-0F6E56)](https://www.trychroma.com/)
+[![Groq](https://img.shields.io/badge/Groq-gpt--oss--120b-orange)](https://groq.com/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-SSE_Streaming-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![License](https://img.shields.io/badge/License-MIT-lightgrey)](#)
 
-## Screenshots
+*Reads your spending → assesses financial health → retrieves real government scheme rules → drafts an investment plan → checks it against a suitability policy → waits for your approval — and corrects its own mistakes before you ever see them.*
+
+</div>
+
+---
+
+## 📑 Table of Contents
+
+- [The Problem](#-the-problem)
+- [What Makes This Different](#-what-makes-this-different)
+- [Architecture](#-architecture)
+- [Agent Reference](#-agent-reference)
+- [Tech Stack](#-tech-stack)
+- [Setup & Run](#-setup--run)
+- [What's Real vs. Mocked](#-whats-real-vs-mocked)
+- [Demonstrated Capabilities](#-demonstrated-capabilities)
+- [Known Limitations](#-known-limitations)
+- [Screenshots](#-screenshots)
+- [Project Structure](#-project-structure)
+
+---
+
+## 🎯 The Problem
+
+Most people don't get personalized, unbiased financial planning. They either don't save systematically, or get steered toward products that don't match their actual risk profile and life stage — often because the only "advisor" they can access earns a commission on what they sell.
+
+**WealthLoop automates the reasoning a good financial advisor does**: read the rules, match them to the person, check the suggestion against a suitability policy, and never act without sign-off — using an agentic AI pipeline instead of a human intermediary.
+
+---
+
+## ⚡ What Makes This Different
+
+This isn't a single LLM call wrapped in a chat UI. It's a **stateful, cyclic multi-agent pipeline** where:
 
 | | |
 |---|---|
-| ![Landing page](docs/screenshots/01-landing-page.png) | ![Pipeline running](docs/screenshots/02-pipeline-running.png) |
-| Persona picker | Pipeline mid-run: ingestion, categorization, financial health, RAG citations |
-| ![Approval gate](docs/screenshots/03-approval-gate.png) | ![Suitability reasoning](docs/screenshots/04-suitability-reasoning.png) |
-| Human approval gate with the proposed allocation | Sunita's plan — ELSS excluded (0%) with the reasoning shown inline |
+| 📚 **Grounded retrieval** | Investment scheme details come from real PFRDA, SEBI, and Ministry of Finance source material embedded in a vector store — not the LLM's general knowledge |
+| 🛡️ **Self-correcting** | A recommendation can be rejected by an independent Suitability Guardrail on rule-based grounds, sent back for revision, and corrected automatically — before a human ever sees it |
+| 🙋 **Human-in-the-loop** | A person can *also* reject an already-compliant recommendation for their own reasons — that reason feeds back into the next attempt as context |
+| ✅ **Verified, not scripted** | Every loop below was observed occurring organically during testing — see [Demonstrated Capabilities](#-demonstrated-capabilities) |
 
-## Architecture: the 8-agent LangGraph pipeline
+---
 
+## 🏗️ Architecture
+
+### Full system
+
+```mermaid
+graph TB
+    subgraph CLIENT["Frontend (Browser)"]
+        UI[index.html + app.js<br/>Persona dropdown, pipeline cards, Approve/Reject UI]
+    end
+
+    subgraph API["FastAPI Backend"]
+        ANALYZE["/api/analyze<br/>Starts graph, returns session_id"]
+        STREAM["/api/stream/session_id<br/>SSE - streams live node events"]
+        APPROVE["/api/approve/session_id<br/>Resumes paused graph"]
+        SESSION[session_store.py<br/>In-memory session registry]
+        RUNNER[graph_runner.py<br/>Runs graph.astream, detects interrupt]
+    end
+
+    subgraph GRAPH["LangGraph - Stateful Agent Pipeline"]
+        direction TB
+        ING[Ingestion Agent]
+        CAT[Categorization Agent]
+        HEALTH[Health Assessment Agent]
+        RAGAGENT[RAG Agent]
+        REC[Recommendation Agent]
+        COMP{Compliance Guardrail}
+        APPGATE{Approval Gate - interrupt}
+        EXEC[Execution Agent]
+
+        ING --> CAT --> HEALTH --> RAGAGENT --> REC --> COMP
+        COMP -->|fail| REC
+        COMP -->|pass| APPGATE
+        APPGATE -->|reject| REC
+        APPGATE -->|approve| EXEC
+    end
+
+    subgraph DATA["Data Layer"]
+        MOCK[mock_data/<br/>3 personas + sample transactions]
+        CHROMA[(ChromaDB<br/>Embedded scheme documents)]
+        DOCS[rag/documents/<br/>NPS, PPF, ELSS, FD - real official text]
+    end
+
+    subgraph EXTERNAL["External Services"]
+        GROQ[Groq API<br/>openai/gpt-oss-120b via langchain-groq]
+        HF[sentence-transformers<br/>all-MiniLM-L6-v2 - local embeddings]
+    end
+
+    UI -->|POST persona| ANALYZE
+    UI -->|EventSource| STREAM
+    UI -->|POST decision| APPROVE
+
+    ANALYZE --> RUNNER
+    APPROVE --> RUNNER
+    RUNNER --> SESSION
+    STREAM --> SESSION
+    RUNNER --> GRAPH
+
+    ING -.reads.-> MOCK
+    RAGAGENT -.queries.-> CHROMA
+    DOCS -.embedded into.-> CHROMA
+    CHROMA -.uses.-> HF
+
+    CAT -.LLM call.-> GROQ
+    REC -.LLM call.-> GROQ
+    COMP -.LLM call for explanation.-> GROQ
 ```
-START → ingestion → categorization → health_assessment → rag_retrieval → recommendation → compliance_guardrail
-                                                                                 ↑                    │
-                                                                                 └────(fail)───────────┤
-                                                                                                        ↓(pass)
-                                                                                                 approval_gate
-                                                                                 ┌──────(rejected)──────┤
-                                                                                 ↓                       ↓(approved)
-                                                                          recommendation              execution → END
+
+### Agent pipeline detail
+
+```mermaid
+graph TD
+    START([Start]) --> ING[Transaction Ingestion Agent<br/>Parses transactions, normalizes income]
+    ING --> CAT[Expense Categorization Agent<br/>LLM call - categorizes spend]
+    CAT --> HEALTH[Financial Health Assessment Agent<br/>Calculates savings rate, emergency fund status]
+    HEALTH --> RAG[Investment Knowledge RAG Agent<br/>Retrieves real scheme docs from ChromaDB]
+    RAG --> REC[Recommendation Agent<br/>LLM call - builds allocation + reasoning]
+    REC --> COMP{Suitability Guardrail Agent<br/>Rule-based check}
+
+    COMP -->|Fails risk threshold| REC
+    COMP -->|Passes| APPROVE{Human Approval Gate<br/>interrupt - waits for user}
+
+    APPROVE -->|Rejected + reason| REC
+    APPROVE -->|Approved| EXEC[Execution Agent<br/>Generates final SIP plan]
+
+    EXEC --> END([End])
 ```
 
-| # | Agent | What it does | LLM? |
-|---|---|---|---|
-| 1 | **Ingestion** | Normalizes raw `user_profile` — computes `average_monthly_income` (mean if income is a list, e.g. a freelancer's variable months) and `income_volatility` ("stable"/"variable" from the swing between months) | No — pure calculation |
-| 2 | **Categorization** | Validates/corrects the mock transactions' rough categories against a fixed 6-category set | Yes — single validation pass, strict JSON, fence-stripping + retry on rate limits |
-| 3 | **Health Assessment** | Computes `savings_rate`, `surplus_amount`, and `emergency_fund_status` (e.g. "0.4 / 6 months") | No — pure calculation |
-| 4 | **Investment RAG** | Builds a query from `risk_appetite` + `financial_goal` + `income_volatility`, retrieves top-k chunks from ChromaDB (4 scheme documents: NPS, PPF, ELSS, FD/Emergency Fund) | No — pure retrieval (`sentence-transformers/all-MiniLM-L6-v2`) |
-| 5 | **Recommendation** | Proposes a % allocation across ELSS/PPF/NPS/FD/Emergency Fund, explicitly instructed to judge each retrieved chunk's suitability language itself rather than trust retrieval rank; incorporates prior rejection/compliance feedback on retries | Yes — the core reasoning agent |
-| 6 | **Compliance Guardrail** | Deterministic, auditable rule check (e.g. moderate risk → ELSS+NPS ≤ 40% of surplus); on failure, one LLM call generates a human-readable explanation citing the actual numbers | Rules: no. Explanation text: yes |
-| 7 | **Human Approval** | Pauses the graph via LangGraph's `interrupt()` and waits — indefinitely, no timeout — for Approve or Reject (+ a fixed-choice reason) | No |
-| 8 | **Execution** | Only runs if approved; computes `monthly_sip`, `annual_deployment`, and a rough estimated tax saved (Section 80C + 80CCD(1B), capped at real limits) | No — pure calculation |
+<details>
+<summary><b>Why both LangChain and LangGraph?</b> (click to expand)</summary>
+<br>
 
-**The two loops are real, not decorative:**
-- `compliance_guardrail → recommendation`: capped at 2 automatic retries (`revision_round`) before forcing the plan to a human regardless.
-- `approval_gate → recommendation`: a human rejection (with a reason from a fixed set: "Too aggressive" / "Want more liquidity" / "Other") sends the plan back for a fresh attempt, carrying that reason in the prompt.
+**LangChain** (`langchain-groq`) is the layer that talks to the LLM — building prompts and making the actual `ChatGroq` calls to Groq's API.
 
-State persists via LangGraph's `MemorySaver` checkpointer, keyed by a `thread_id` = the session's UUID, so multiple analyses can run independently.
+**LangGraph** is the orchestration layer on top — it owns the `FinanceState`, decides which agent runs next, and implements the two conditional loops (compliance-fail-then-retry, human-reject-then-revise) along with the `interrupt()`/resume mechanism for human-in-the-loop approval. LangChain alone can make a single LLM call; it has no concept of a stateful, cyclic, pausable pipeline — that's what LangGraph adds.
 
-## Tech stack
+</details>
 
-- **Orchestration:** LangGraph (`StateGraph`, conditional edges, `interrupt()`, `MemorySaver`)
-- **LLM:** Groq (`openai/gpt-oss-120b`) via `langchain-groq`
-- **RAG:** ChromaDB (persistent, local) + `sentence-transformers` (`all-MiniLM-L6-v2`)
-- **Backend:** FastAPI, Server-Sent Events (`sse-starlette`) for live pipeline streaming
-- **Frontend:** vanilla HTML/CSS/JS (no framework) — an SSE client that animates 8 agent cards through pending → running → done
-- **Config:** `python-dotenv`, Pydantic
+---
 
-## Setup & run
+## 🤖 Agent Reference
+
+| # | Agent | LLM Call? | What it does |
+|:-:|-------|:---:|---|
+| 1 | **Transaction Ingestion** | ❌ | Loads transactions, normalizes income (handles fixed & variable income) |
+| 2 | **Expense Categorization** | ✅ | Validates/refines spend categorization across 6 categories |
+| 3 | **Financial Health Assessment** | ❌ | Computes savings rate, monthly surplus, emergency fund status |
+| 4 | **Investment Knowledge RAG** | ❌ (retrieval only) | Queries ChromaDB for scheme details relevant to profile & goal |
+| 5 | **Recommendation** | ✅ | Drafts allocation across ELSS / PPF / NPS / FD / Emergency Fund, with reasoning |
+| 6 | **Suitability Guardrail** | ⚠️ (rules deterministic; explanation text is LLM-generated) | Checks allocation vs. risk-based equity caps; fails & loops back if violated |
+| 7 | **Human Approval Gate** | ❌ | Pauses the pipeline via LangGraph's `interrupt()`; waits for a real decision |
+| 8 | **Execution** | ❌ | Computes final monthly SIP, annual deployment, estimated tax savings |
+
+---
+
+## 🛠️ Tech Stack
+
+- **Orchestration** — LangGraph (stateful graph, conditional edges, `interrupt()`/checkpointer for HITL)
+- **LLM layer** — LangChain (`langchain-groq`) → Groq API, model `openai/gpt-oss-120b`
+- **RAG** — ChromaDB (persisted vector store) + `sentence-transformers` (`all-MiniLM-L6-v2`, local/free embeddings)
+- **Backend** — FastAPI + `sse-starlette` (Server-Sent Events for live pipeline streaming)
+- **Frontend** — Vanilla HTML/CSS/JS, no build step — `EventSource` streams node-by-node progress into an animated pipeline modal
+
+---
+
+## 🚀 Setup & Run
 
 ```bash
-# 1. Install dependencies
+# 1. Clone and enter the project
+git clone https://github.com/manjesh0091/wealthloop.git
+cd wealthloop
+
+# 2. Create and activate a virtual environment
+python -m venv venv
+venv\Scripts\Activate.ps1        # Windows PowerShell
+# source venv/bin/activate       # macOS/Linux
+
+# 3. Install dependencies
 pip install -r requirements.txt
 
-# 2. Configure environment
+# 4. Configure environment
 cp .env.example .env
-# then edit .env and set GROQ_API_KEY
+# edit .env and add your GROQ_API_KEY
 
-# 3. Ingest the RAG scheme documents into ChromaDB (run once, or after editing
-#    the .txt files in backend/rag/documents/)
-python -m backend.rag.ingest
+# 5. Embed the RAG source documents into ChromaDB (one-time)
+python backend/rag/ingest.py
 
-# 4. Start the server
-uvicorn backend.main:app --reload
+# 6. Run the server
+python -m uvicorn backend.main:app --reload
 
-# 5. Open the app
-# http://127.0.0.1:8000
+# 7. Open http://127.0.0.1:8000
 ```
 
-Optional: set `DEMO_FORCE_FAIL_FOR` in `.env` (e.g. `DEMO_FORCE_FAIL_FOR=kabir`) to guarantee the compliance fail-then-retry loop fires on that persona's first attempt during a live demo — it forces the failure flag only, the underlying rule logic is untouched. Leave it blank for organic behavior.
+> **Optional flags:** `DEMO_FORCE_FAIL_FOR=<persona>` guarantees the compliance fail-then-retry loop fires on demand. The frontend's **"Step through mode"** pauses after each agent completes for manual inspection.
 
-## What's real vs. what's mocked
+---
 
-**Mocked (illustrative, for demo purposes):**
-- The 3 personas (`backend/mock_data/personas.py`) and their transaction histories (`backend/mock_data/transactions.py`) are hand-authored sample data, not real bank feeds.
+## 🔍 What's Real vs. Mocked
 
-**Fully functional (not mocked):**
-- **RAG retrieval** — real embeddings, real ChromaDB vector search over real (if illustrative) scheme documents.
-- **LLM reasoning** — every categorization, recommendation, and compliance-explanation call is a real Groq API call; nothing is templated or canned.
-- **Compliance logic** — the suitability rules are real, deterministic, and auditable (not LLM-decided), and genuinely alter the graph's execution path.
-- **The LangGraph state machine** — the conditional loops, the `interrupt()`-based human-in-the-loop pause, and the checkpointer are all real; nothing about the control flow is simulated on the frontend. The UI's "running" state per card is a deliberate perceived-pacing animation (since real backend events can arrive faster than is legible), but every event it renders came from an actual node execution.
+| Component | Status | Notes |
+|---|:---:|---|
+| LangGraph state machine, both conditional loops | ✅ **Real** | Tested with real interrupt/resume cycles on independent threads |
+| ChromaDB retrieval | ✅ **Real** | Genuine vector search, not keyword lookup |
+| RAG source documents | ✅ **Real content** | Sourced from official PFRDA / SEBI / Ministry of Finance material |
+| LLM reasoning (all 3 LLM-calling agents) | ✅ **Real** | Live Groq calls, not templated outputs |
+| Suitability Guardrail rules | ✅ **Real, deterministic** | Auditable rule-based thresholds, not an LLM judgment call |
+| Human-in-the-loop approval | ✅ **Real** | Genuine `interrupt()` — no fixed timer, waits indefinitely |
+| Sample personas & transactions | 🟡 **Illustrative** | Realistic but not connected to a real bank/UPI feed |
+| Execution (SIP activation) | 🟡 **Illustrative** | Produces a final plan; not wired to a real broker/AMC |
 
-## Demonstrated capabilities
+---
 
-**Organic compliance-fail-then-retry (Kabir).** Running Kabir Mehta (moderate risk, emergency-fund goal) end-to-end repeatedly showed the recommendation agent naturally proposing ELSS+NPS combinations that exceed the 40% moderate-risk cap (e.g. 30%+15%=45%) on a real, un-forced run — `compliance_guardrail` caught it, `revision_round` incremented, and the second attempt corrected to within the cap. Confirmed both via terminal state-history inspection and live in the browser (attempt badge advancing on the Recommendation card).
+## ✅ Demonstrated Capabilities
 
-**Human-reject-then-revise (works on any persona, tested on Kabir).** The `approval_gate → recommendation` loop isn't persona-specific — any plan can be rejected. Tested live: rejected Kabir's plan with "Too aggressive," confirmed the pipeline visibly looped back through recommendation → compliance → approval a second time, with the rejection reason present in the retry prompt and the recommendation agent's revised reasoning explicitly referencing it.
+**1. Organic compliance-fail-then-retry loop** *(Kabir persona)* — The Recommendation Agent produced 45% combined equity exposure against a 40% cap for "moderate" risk. The Guardrail caught it, explained why with the actual numbers, and the next attempt corrected to 35% — observed to occur naturally, without forcing.
 
-**RAG-driven suitability reasoning (Sunita's ELSS exclusion).** Sunita Iyer (conservative, near-retirement) retrieves ELSS's own "Suitability Notes" chunk during RAG (dense retrieval doesn't filter it out — see limitation below), but the recommendation agent correctly assigns it **0%** with reasoning that explicitly cites her age and risk profile, rather than treating "retrieved" as "recommended." This is the core test of whether the "don't assume retrieval order means suitability" instruction actually works, and it does.
+**2. RAG-grounded suitability reasoning** *(Sunita persona)* — Retrieved chunks included ELSS's own suitability notes warning it's unsuitable near retirement. Rather than treating retrieval as endorsement, the agent read the content and assigned ELSS 0%, citing the reasoning explicitly.
 
-**Known limitations:**
-- **Dense retrieval's suitability-notes clustering.** `all-MiniLM-L6-v2` tends to rank all four scheme documents' "Suitability Notes" sections closely together, since they use similar risk/investor-profile language regardless of whether the note recommends *for* or *against* that scheme for a given user. Retrieval rank is therefore not a reliable proxy for "good match" — the recommendation agent is explicitly prompted to read each chunk's actual content rather than trust its position in the top-k results, which is why the Sunita case above works despite this.
-- **Synchronous LLM calls.** All Groq calls use `langchain_groq`'s synchronous `.invoke()`, which blocks the asyncio event loop for that call's duration inside `graph.astream()`. Fine for the single-session demo as built; supporting many concurrent sessions well would need switching to `.ainvoke()`.
+**3. Human-reject-then-revise loop** — Rejecting an already-compliant plan with a reason ("Too aggressive") correctly routed back with that context, and the next attempt addressed it directly.
+
+**4. Goal-vs-policy tension handling** *(Kabir persona)* — When a 15–25% allocation cap directly constrained his own stated goal (emergency fund), the agent began explicitly naming the tension and resolving it via supplementary liquidity or an explicit timeline.
+
+---
+
+## ⚠️ Known Limitations
+
+- Dense retrieval (`all-MiniLM-L6-v2`) doesn't reliably separate "recommended for this profile" from "warned against for this profile" at the ranking level — handled by prompting the LLM to read chunk content rather than trust rank.
+- LLM calls are synchronous within the async graph loop — fine for single-session use; would need `ainvoke()` for concurrent multi-user sessions.
+- Groq's free-tier daily token cap (200K TPD) was hit during testing; a lightweight response cache mitigates this for repeated demo runs.
+
+---
+
+## 📸 Screenshots
+
+| Landing Page | Pipeline Mid-Run |
+|:---:|:---:|
+| ![Landing](docs/screenshots/landing.png) | ![Pipeline](docs/screenshots/pipeline_running.png) |
+
+| Approval Gate | Suitability Reasoning (Sunita) |
+|:---:|:---:|
+| ![Approval](docs/screenshots/approval_gate.png) | ![Suitability](docs/screenshots/suitability_reasoning.png) |
+
+---
+
+## 📂 Project Structure
+
+```
+wealthloop/
+├── backend/
+│   ├── main.py, config.py, state.py, graph.py, graph_runner.py, session_store.py
+│   ├── agents/          # 8 agent implementations
+│   ├── rag/              # ingest.py, retriever.py, documents/ (source texts)
+│   ├── mock_data/         # personas.py, transactions.py
+│   └── routers/           # analyze.py, stream.py, approve.py
+├── frontend/               # index.html, static/style.css, static/app.js
+├── chroma_db/              # persisted vector store
+├── scripts/run_demo_cli.py # terminal-only fallback runner
+└── tests/test_graph.py
+```
+
+---
+
+<div align="center">
+
+*Built for a hackathon MVP submission. Core agentic logic — RAG, LLM reasoning, compliance rules, and the LangGraph state machine — is fully functional against sample data.*
+
+</div>
