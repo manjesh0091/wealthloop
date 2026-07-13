@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WealthLoop</title>
+  <link rel="stylesheet" href="static/style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <span class="brand-mark">WL</span>
+      <div class="brand-text">
+        <h1>WealthLoop</h1>
+        <p>Multi-agent personal finance orchestrator</p>
+      </div>
+    </header>
+
+    <main class="control-panel">
+      <label class="field-label" for="persona-select">Choose a persona</label>
+      <div class="control-row">
+        <select id="persona-select"></select>
+        <button id="analyze-btn" class="btn-primary">Analyze My Finances</button>
+      </div>
+      <label class="step-through-toggle-row" for="step-through-toggle">
+        <input type="checkbox" id="step-through-toggle" />
+        <span>Step through mode <span class="step-through-toggle-hint">(pause after each agent card, review at your own pace)</span></span>
+      </label>
+    </main>
+  </div>
+
+  <div id="overlay" class="overlay" hidden>
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <h2 id="modal-persona-name">&mdash;</h2>
+          <p id="modal-status-line" class="modal-status-line">Starting analysis&hellip;</p>
+        </div>
+        <button id="close-modal-btn" class="btn-close" aria-label="Close" type="button">&#10005;</button>
+      </div>
+      <div class="pipeline" id="pipeline"></div>
+      <div class="step-through-bar" id="step-through-bar" hidden>
+        <span id="step-through-hint">Paused</span>
+        <button id="continue-btn" class="btn-primary" type="button">Continue &rarr;</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="static/app.js"></script>
+</body>
+</html>

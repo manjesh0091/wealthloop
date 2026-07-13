@@ -1,0 +1,35 @@
+FIXED DEPOSITS (FD) AND EMERGENCY FUND GUIDELINES
+Regulator: Reserve Bank of India (RBI) for banking-related deposit norms; Income Tax Department for tax-saving FD provisions
+Governing Framework: Banking Regulation Act, 1949 (RBI oversight of scheduled commercial banks); Section 80C of the Income Tax Act, 1961 (for tax-saving FDs)
+
+1. OVERVIEW — REGULAR FIXED DEPOSITS
+
+A Fixed Deposit is a deposit instrument offered by scheduled commercial banks, small finance banks, and post offices, where a lump sum is deposited for a fixed tenure at a predetermined interest rate. Regular FDs offer tenures typically ranging from 7 days to 10 years, with interest rates varying by bank, tenure, and depositor category (senior citizens are usually offered a marginally higher rate, commonly 0.25-0.50 percentage points above the standard rate).
+
+Deposit Insurance: Bank deposits, including FDs, are insured by the Deposit Insurance and Credit Guarantee Corporation (DICGC), a wholly-owned subsidiary of the RBI, up to Rs. 5,00,000 per depositor per bank (covering principal and interest combined). This makes bank FDs one of the lowest-risk investment instruments available to retail investors, subject to this insurance ceiling.
+
+2. TAX-SAVING FIXED DEPOSITS (5-YEAR FD)
+
+- A specific category of bank FD — the "tax-saving FD" — has a mandatory minimum lock-in of 5 years and qualifies for deduction under Section 80C of the Income Tax Act, 1961, up to a combined ceiling of Rs. 1,50,000 per financial year (shared with other 80C instruments such as PPF and ELSS).
+- Unlike PPF or ELSS, interest earned on a tax-saving FD is fully taxable as per the investor's income tax slab rate, and TDS (Tax Deducted at Source) is applicable if the annual interest exceeds the prescribed threshold. Tax-saving FDs do not offer the same tax-free interest treatment as PPF.
+- Premature withdrawal, loan facility, and auto-renewal are typically not permitted on tax-saving FDs during the 5-year lock-in.
+
+3. INTEREST RATES
+
+FD interest rates are set independently by each bank within RBI's regulatory framework and are not centrally fixed. Rates fluctuate with the broader interest rate cycle (influenced by RBI's repo rate decisions) and typically range from approximately 6% to 7.5% per annum for general category depositors across various tenures, with senior citizens typically receiving a modest premium. Rates should always be checked with the specific bank at the time of investment, as they are revised periodically.
+
+4. RISK AND LIQUIDITY PROFILE
+
+FDs are considered a low-risk, capital-protected instrument (subject to the DICGC insurance ceiling per bank). Regular (non-tax-saving) FDs typically allow premature withdrawal, usually subject to a penal interest rate reduction (commonly 0.5-1 percentage point lower than the contracted rate) if broken before maturity. This liquidity feature makes regular short-tenure FDs a common building block for emergency funds.
+
+5. EMERGENCY FUND GUIDELINES (GENERAL FINANCIAL PLANNING PRINCIPLE)
+
+While not a government-mandated scheme, standard personal finance guidance — consistent with principles promoted through RBI and SEBI investor education initiatives — recommends maintaining an emergency fund equivalent to 3 to 6 months of essential monthly expenses, held in highly liquid instruments such as a savings account, liquid mutual funds, or short-tenure FDs with premature withdrawal facility. This fund is intended to cover income disruption, medical emergencies, or unplanned expenses without requiring the investor to break long-term, locked-in investments (such as PPF, NPS, or ELSS) prematurely, which could result in loss of tax benefits or penal charges.
+
+Individuals with irregular or variable income (such as freelancers or gig workers) are generally advised to maintain a larger emergency buffer — often on the higher end of the 3-6 month range or beyond — given greater income unpredictability, before committing surplus funds to long-lock-in tax-saving instruments.
+
+6. SUITABILITY NOTES
+
+Regular FDs and liquid instruments are suitable as the foundation of an emergency fund for all risk profiles, and as a stable, low-volatility component of a conservative investor's broader portfolio. Tax-saving FDs are generally the least tax-efficient of the standard Section 80C options (due to fully taxable interest) and are typically recommended only after PPF, ELSS, or NPS contribution room has been considered, or for investors specifically seeking capital protection over the 5-year lock-in without any equity exposure.
+
+Source: Reserve Bank of India (RBI) regulatory framework for scheduled commercial banks under the Banking Regulation Act, 1949; Deposit Insurance and Credit Guarantee Corporation (DICGC) deposit insurance provisions; Section 80C of the Income Tax Act, 1961 for tax-saving fixed deposit provisions.

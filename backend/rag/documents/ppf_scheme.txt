@@ -1,0 +1,54 @@
+PUBLIC PROVIDENT FUND (PPF)
+Governing Notification: Public Provident Fund Scheme, 2019 (replaced the earlier PPF Scheme, 1968)
+Issuing Authority: Ministry of Finance, Department of Economic Affairs, Government of India
+
+1. OVERVIEW
+
+The Public Provident Fund is a long-term, government-backed savings instrument offered through post offices and authorized nationalized and private banks. It was introduced in 1968 to mobilize small savings with the dual objective of providing a reasonable, guaranteed return and income tax benefits. The scheme was re-notified as the "Public Provident Fund Scheme, 2019" effective 12th December 2019, which superseded the original 1968 scheme while retaining most of its core features.
+
+2. ELIGIBILITY AND ACCOUNT RULES
+
+- Any individual resident in India may open a PPF account.
+- An individual may also open one account on behalf of each minor child, or a person of unsound mind, of whom they are the guardian. Only one guardian may open an account on behalf of a given minor.
+- No joint PPF accounts are permitted.
+- NRIs are generally not eligible to open new PPF accounts (though existing accounts opened while resident may continue to maturity under specific conditions).
+
+3. DEPOSIT LIMITS
+
+- Minimum deposit: Rs. 500 per financial year (required to keep the account active).
+- Maximum deposit: Rs. 1,50,000 per financial year. This ceiling is inclusive of deposits made in the account holder's own account plus any account(s) opened by them as guardian on behalf of minors.
+- Amounts deposited in excess of Rs. 1,50,000 in a financial year do not earn any interest and are generally eligible for refund without interest.
+- There is no restriction on the number of deposit installments within the annual ceiling.
+
+4. INTEREST RATE
+
+- The interest rate is notified by the Government of India on a quarterly basis and is subject to change. Historically it has hovered in the range of approximately 7.1% per annum in recent quarters, compounded annually.
+- Interest is calculated on the lowest balance in the account between the 5th day and the last day of each month, and is credited annually at the end of the financial year (31st March).
+
+5. TAX BENEFITS
+
+- Contributions up to Rs. 1,50,000 per financial year qualify for deduction under Section 80C of the Income Tax Act, 1961.
+- PPF enjoys "EEE" (Exempt-Exempt-Exempt) tax status: the contribution is deductible, the annual interest accrued is fully exempt from income tax, and the maturity proceeds (principal + interest) are also fully tax-exempt on withdrawal.
+- The balance in a PPF account is also protected from attachment under any court order or decree (under the Government Savings Banks Act, 1873), except for recovery of government dues such as income tax arrears.
+
+6. LOCK-IN, LOANS, AND PARTIAL WITHDRAWAL
+
+- The PPF account has a maturity period of 15 years from the end of the financial year in which it was opened.
+- Loans against the PPF balance are permitted from the 3rd financial year up to the end of the 6th financial year, subject to specific interest rate rules (the PPF Scheme, 2019 revised the loan interest spread from 2% to 1% over the prevailing PPF rate).
+- Partial withdrawal is permitted after completion of 5 financial years from account opening, subject to withdrawal limits (up to 50% of the balance at the end of the 4th preceding year, or the immediately preceding year, whichever is lower).
+- On maturity (after 15 years), the account holder may withdraw the full balance tax-free, or extend the account in blocks of 5 years, with or without further contributions.
+
+7. ACCOUNT DISCONTINUATION AND REVIVAL
+
+- If the minimum annual deposit of Rs. 500 is not made in a given year, the account is treated as "discontinued" (but continues to earn interest on the existing balance).
+- A discontinued account can be revived during the maturity period by paying a penalty of Rs. 50 per year of default, along with the arrears of minimum deposits for each defaulted year.
+
+8. PREMATURE CLOSURE
+
+Premature closure (before the 15-year maturity) is permitted only after completion of 5 financial years, and only on specific grounds such as: life-threatening illness of the account holder, spouse, or dependents; higher education expenses of the account holder or dependent children; or change in residency status of the account holder. Premature closure typically attracts a 1% reduction in the applicable interest rate for the period the account was held.
+
+9. SUITABILITY NOTES
+
+PPF is well suited to conservative, risk-averse investors seeking guaranteed, sovereign-backed, tax-free returns over a long horizon, particularly those prioritizing capital protection over growth. It is not suitable as a primary vehicle for investors who may need access to funds within the first five years, given the long lock-in and restricted early withdrawal provisions.
+
+Source: Ministry of Finance, Department of Economic Affairs, Government of India — Public Provident Fund Scheme, 2019 (Gazette Notification G.S.R. 915(E), dated 12th December 2019), rescinding the Public Provident Fund Scheme, 1968. Reference: incometaxindia.gov.in and Department of Economic Affairs notifications.

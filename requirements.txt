@@ -1,0 +1,10 @@
+langgraph
+langchain
+langchain-groq
+chromadb
+fastapi
+uvicorn
+python-dotenv
+pydantic
+sentence-transformers
+sse-starlette

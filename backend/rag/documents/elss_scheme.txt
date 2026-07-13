@@ -1,0 +1,39 @@
+EQUITY LINKED SAVINGS SCHEME (ELSS)
+Regulator: Securities and Exchange Board of India (SEBI)
+Governing Framework: SEBI (Mutual Funds) Regulations, 1996; Equity Linked Savings Scheme Guidelines, 2005 (as amended)
+
+1. OVERVIEW
+
+An Equity Linked Savings Scheme (ELSS) is an open-ended diversified equity mutual fund that qualifies for tax deduction under Section 80C of the Income Tax Act, 1961. ELSS was first conceptualized in the Union Budget of 1989-90 as a mechanism to channel household savings into equity markets while offering a tax incentive. It remains the only category of mutual fund eligible for Section 80C deduction.
+
+2. ASSET ALLOCATION REQUIREMENTS
+
+Under SEBI and ELSS guidelines, an ELSS fund must invest at least 80% of its total assets in equity and equity-related instruments (such as convertible debentures and equity derivatives of domestic companies). The remaining portion (up to approximately 20%) may be held in debt instruments, money market instruments, or cash equivalents for liquidity management. SEBI regulations also cap concentration risk — no single stock or issuer may typically exceed 10% of the scheme's net asset value.
+
+In 2022, SEBI also permitted "passive" ELSS funds that track a broad equity index (such as the top 250 companies by market capitalization), in addition to traditional actively managed ELSS funds.
+
+3. LOCK-IN PERIOD
+
+ELSS carries a mandatory lock-in period of 3 years from the date of allotment of units — the shortest lock-in period among all Section 80C tax-saving instruments (compared to 15 years for PPF or effectively till retirement for NPS Tier I). There are no provisions for premature withdrawal during this lock-in, except in the case of the death of the unit holder, in which case the nominee/legal heir may withdraw after completion of one year from allotment.
+
+For SIP (Systematic Investment Plan) investments in ELSS, each individual SIP installment is separately locked in for 3 years from its own respective investment date — not from the date of the first installment.
+
+4. TAX BENEFITS
+
+- Investment up to Rs. 1,50,000 in a financial year is eligible for deduction under Section 80C of the Income Tax Act, 1961 (this is a shared ceiling with other Section 80C instruments such as PPF).
+- Gains on ELSS units are treated as Long-Term Capital Gains (LTCG) since the mandatory lock-in exceeds one year. LTCG on equity-oriented funds is taxed at a specified rate (historically 10-12.5% depending on the applicable Finance Act provisions) on gains exceeding a specified annual threshold (historically Rs. 1-1.25 lakh); gains up to that threshold are tax-exempt.
+- Note: Since the introduction of the optional new tax regime, taxpayers who opt for the new regime forgo Section 80C deductions, including ELSS; the 80C benefit is only available under the old tax regime.
+
+5. RETURNS AND RISK PROFILE
+
+Being equity-oriented, ELSS returns are market-linked and not guaranteed. They carry equity market risk, including price volatility and potential capital loss in the short-to-medium term. Over long holding periods (5-10 years or more), ELSS funds have historically had the potential to generate inflation-beating returns compared to traditional fixed-return Section 80C instruments, but with materially higher volatility and no capital guarantee.
+
+6. INVESTMENT MODES
+
+Investors may invest via lump sum or through a Systematic Investment Plan (SIP), starting from amounts as low as Rs. 500. There is no upper ceiling on the amount that can be invested in ELSS (only the Rs. 1.5 lakh Section 80C deduction ceiling limits the tax benefit, not the investment amount itself).
+
+7. SUITABILITY NOTES
+
+ELSS is generally suitable for investors with a moderate-to-aggressive risk appetite, a long-term investment horizon, and a preference for the shortest available lock-in among tax-saving options. It is generally considered less suitable for investors with a low risk tolerance, near-term liquidity needs, or those close to retirement who cannot absorb equity market volatility, since a significant allocation to an 80%+ equity instrument would expose their tax-saving corpus to market risk shortly before requiring stable income.
+
+Source: Securities and Exchange Board of India (SEBI) Investor Education portal (investor.sebi.gov.in/elss.html); Equity Linked Savings Scheme, 2005 notification (Ministry of Finance, Department of Economic Affairs), as amended; SEBI (Mutual Funds) Regulations, 1996.

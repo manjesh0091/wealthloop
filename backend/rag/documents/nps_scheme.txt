@@ -1,0 +1,49 @@
+NATIONAL PENSION SYSTEM (NPS)
+Regulator: Pension Fund Regulatory and Development Authority (PFRDA)
+Governing Framework: PFRDA Act, 2013
+
+1. OVERVIEW
+
+The National Pension System (NPS) is a defined-contribution pension scheme introduced by the Government of India in 2004. It is designed to enable systematic and regular savings during an individual's working life, building a retirement corpus that provides income security post-retirement. NPS is mandatory for Central Government employees who joined service on or after 1st January 2004, and has since been adopted voluntarily by most State Governments for their employees. It is also open to any Indian citizen (resident, non-resident, or Overseas Citizen of India) on a voluntary basis under the "All Citizen Model."
+
+2. ELIGIBILITY
+
+- Any Indian citizen (resident, NRI, or OCI) between the ages of 18 and 85 years may voluntarily subscribe.
+- Hindu Undivided Families (HUFs) and Persons of Indian Origin (PIOs) are not eligible to subscribe.
+- NPS is strictly an individual pension account and cannot be opened on behalf of another person (except minors under NPS Vatsalya, where a guardian operates the account).
+- Subscribers must comply with KYC norms as prescribed in the NPS subscriber application form.
+
+3. ACCOUNT STRUCTURE
+
+NPS offers two types of accounts:
+- Tier I Account: The primary retirement account. Withdrawals are restricted and governed by the PFRDA (Exits and Withdrawals under the National Pension System) Regulations, 2015.
+- Tier II Account: A voluntary, more liquid savings account with no withdrawal restrictions, but it does not carry the same tax benefits as Tier I.
+
+Subscribers can choose their own Point of Presence (PoP), Central Recordkeeping Agency (CRA), Pension Fund Manager, and asset allocation strategy, and can change their Pension Fund and investment choice up to a limited number of times per year.
+
+4. TAX BENEFITS
+
+- Contributions up to Rs. 1.5 lakh are eligible for deduction under Section 80CCE of the Income Tax Act, 1961 (this is a combined ceiling shared with other Section 80C instruments such as PPF and ELSS).
+- An ADDITIONAL deduction of up to Rs. 50,000 is available exclusively for NPS Tier I contributions under Section 80CCD(1B), over and above the Rs. 1.5 lakh combined limit. This makes NPS one of the few instruments offering tax benefit beyond the standard 80C ceiling.
+- At the time of exit, a minimum of 40% of the accumulated corpus must be compulsorily used to purchase an annuity (regular pension payout). This annuitized portion is not taxed at the time of purchase.
+- Up to 60% of the total corpus can be withdrawn as a lump sum at maturity; as per current provisions this lump sum is tax-exempt.
+- Goods and Services Tax is not applicable on annuity purchase from the NPS corpus.
+
+5. RETURNS AND RISK PROFILE
+
+NPS is a market-linked scheme; returns are not guaranteed and depend on the performance of the underlying asset classes (equity, corporate bonds, government securities, and alternative assets) chosen by the subscriber or the auto-choice life-cycle fund. Historically, blended NPS returns across schemes have generally ranged in the 9-11% p.a. band over long horizons, though this is not a guarantee of future performance. Subscribers with a lower risk appetite can select a higher allocation to government securities and a lower allocation to equity; PFRDA's auto-choice option progressively reduces equity exposure as the subscriber ages.
+
+6. LOCK-IN AND EXIT
+
+- The account is effectively locked in until the subscriber reaches 60 years of age (for the All Citizen Model), with limited provisions for partial withdrawal (up to 25% of self-contributions, permitted a maximum of three times, for specified purposes such as higher education, marriage, treatment of specified illnesses, or home purchase).
+- Premature exit before age 60 is permitted only under specific conditions and requires a higher mandatory annuitization percentage (80% of corpus) compared to normal retirement exit.
+
+7. COST STRUCTURE
+
+NPS is regarded as one of the lowest-cost pension products available, with fund management charges historically capped at a small fraction of assets under management annually, well below typical actively managed mutual fund expense ratios.
+
+8. SUITABILITY NOTES
+
+NPS suits investors seeking a low-cost, long-horizon retirement vehicle who are comfortable with a compulsory annuitization requirement and limited liquidity until retirement age. It is generally unsuitable as a primary vehicle for near-term goals (under 10 years) or for individuals prioritizing full liquidity, given the lock-in until age 60.
+
+Source: Pension Fund Regulatory and Development Authority (PFRDA), "About NPS" and NPS Handbook (pfrda.org.in). Regulatory framework under the PFRDA Act, 2013, and the PFRDA (Exits and Withdrawals under the National Pension System) Regulations, 2015.
