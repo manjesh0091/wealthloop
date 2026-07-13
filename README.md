@@ -250,11 +250,11 @@ python -m uvicorn backend.main:app --reload
 
 | Landing Page | Pipeline Mid-Run |
 |:---:|:---:|
-| ![Landing](docs/screenshots/landing.png) | ![Pipeline](docs/screenshots/pipeline_running.png) |
+| ![Landing](docs/screenshots/01-landing-page.png) | ![Pipeline](docs/screenshots/02-pipeline-running.png) |
 
 | Approval Gate | Suitability Reasoning (Sunita) |
 |:---:|:---:|
-| ![Approval](docs/screenshots/approval_gate.png) | ![Suitability](docs/screenshots/suitability_reasoning.png) |
+| ![Approval](docs/screenshots/03-approval-gate.png) | ![Suitability](docs/screenshots/04-suitability-reasoning.png) |
 
 ---
 
